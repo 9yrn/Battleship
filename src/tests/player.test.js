@@ -24,7 +24,7 @@ describe("Player Class", () => {
     const enemyShip = new Ship(2);
     enemyBoard.placeShip(enemyShip, "A1", "horizontal");
 
-    const result = player.attack(enemBoard, "A1");
+    const result = player.attack(enemyBoard, "A1");
     expect(result).toBe("hit");
     expect(enemyShip.hits).toBe(1);
   });
@@ -32,7 +32,7 @@ describe("Player Class", () => {
   test("player cannot attack the same coordinate twice", () => {
     player.attack(enemyBoard, "B3");
     expect(() => player.attack(enemyBoard, "B3")).toThrow(
-      "Coordinate B3 already been attacked",
+      "Coordinate B3 already attacked",
     );
   });
 

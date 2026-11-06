@@ -1,9 +1,23 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <link rel="stylesheet" href="style.css" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Battleship</title>
   </head>
-  <body></body>
+  <body>
+    <h2 id="status">Your Turn: Click enemy waters to attack</h2>
+    <div class="boards-container">
+      <div>
+        <h3>Your Fleet</h3>
+        <div id="player-board" class="board"></div>
+      </div>
+      <div>
+        <h3>Enemy Waters</h3>
+        <div id="computer-board" class="board"></div>
+      </div>
+    </div>
+  </body>
+  <script type="module" src="back.js"></script>
 </html>

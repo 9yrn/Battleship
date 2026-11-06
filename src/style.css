@@ -1,0 +1,27 @@
+.boards-container {
+  display: flex;
+  gap: 2rem;
+}
+.board {
+  display: grid;
+  grid-template-columns: repeat(10, 36px);
+  grid-gap: 2px;
+}
+.cell {
+  width: 36px;
+  height: 36px;
+  border: 1px solid #ccc;
+  background: #e0f2fe;
+  cursor: pointer;
+}
+.cell.ship {
+  background: #64748b;
+}
+.cell.hit {
+  background: #ef4444;
+  cursor: not-allowed;
+}
+.cell.miss {
+  background: #94a3b8;
+  cursor: not-allowed;
+}

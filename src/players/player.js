@@ -1,4 +1,4 @@
-import { Gameboard } from "../gameboard/gameboard.js";
+import { Gameboard } from "../board/gameboard.js";
 
 export class Player {
   constructor(name = "Player", type = "human") {
@@ -14,7 +14,7 @@ export class Player {
     for (let r = 0; r < 10; r++) {
       const rowLetter = String.fromCharCode(65 + r);
       for (let c = 0; c < 10; c++) {
-        coordinates.push(`${rowLetter}${c}`);
+        coordinates.push(`${rowLetter}${c + 1}`);
       }
     }
     return coordinates;

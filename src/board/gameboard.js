@@ -1,8 +1,14 @@
+export function parseCoordinate(coordinate) {
+  const row = coordinate.toUpperCase().charCodeAt(0) - 65; // "A" -> 0
+  const col = parseInt(coordinate.slice(1), 10) - 1; // "1" -> 0
+  return [row, col];
+}
+
 export class Gameboard {
   constructor(rows = 10, columns = 10) {
     this.rows = rows;
     this.columns = columns;
-    this.grid = this.#createGrid;
+    this.grid = this.#createGrid();
     this.ships = [];
     this.missedAttacks = [];
   }
@@ -23,9 +29,8 @@ export class Gameboard {
     return board;
   }
 
-  getSquare(target) {
-    const [r, c] =
-      typeof target === "string" ? parseCoordinate(target) : target;
+  getSquare(coordinate) {
+    const [r, c] = parseCoordinate(coordinate);
     return this.grid[r]?.[c] ?? null;
   }
 
