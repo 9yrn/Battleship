@@ -1,27 +1,213 @@
+:root {
+  --bg-main: #0b132b;
+  --bg-card: #1c2541;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --water: #1e293b;
+  --water-hover: #334155;
+  --ship: #0284c7;
+  --hit: #ef4444;
+  --miss: #475569;
+  --accent: #38bdf8;
+  --preview: rgba(56, 189, 248, 0.4);
+  --invalid: rgba(239, 68, 68, 0.4);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1rem;
+}
+
+/* Headings use Pixelify Sans */
+h1,
+.board-wrapper h3 {
+  font-family: "Pixelify Sans", sans-serif;
+  font-optical-sizing: auto;
+}
+
+h1 {
+  font-size: 2.75rem;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--accent);
+  text-shadow: 0 0 12px rgba(56, 189, 248, 0.3);
+}
+
+.board-wrapper h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+
+/* Standard readable system font for normal texts (status, buttons) */
+#status,
+.control-btn {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+#status {
+  background: var(--bg-card);
+  padding: 0.65rem 1.4rem;
+  border-radius: 9999px;
+  border: 1px solid #334155;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-main);
+  margin-bottom: 1.25rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+#setup-controls {
+  margin-bottom: 1.5rem;
+}
+
+.control-btn {
+  background: var(--bg-card);
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: transform 0.1s ease, background-color 0.1s ease;
+}
+
+.control-btn:hover {
+  background-color: #0c4a6e;
+}
+
+.control-btn:focus-visible {
+  outline: 2px solid var(--text-main);
+}
+
+.control-btn:active {
+  transform: scale(0.96);
+}
+
 .boards-container {
   display: flex;
   gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
 }
+
+.board-wrapper {
+  background: var(--bg-card);
+  padding: 1.25rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  border: 1px solid #334155;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
 .board {
   display: grid;
   grid-template-columns: repeat(10, 36px);
-  grid-gap: 2px;
+  grid-template-rows: repeat(10, 36px);
+  gap: 3px;
+  background-color: #0f172a;
+  padding: 4px;
+  border-radius: 8px;
+  border: 1px solid #334155;
 }
+
+.board.locked {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+/* Interactive States */
 .cell {
   width: 36px;
   height: 36px;
-  border: 1px solid #ccc;
-  background: #e0f2fe;
+  background-color: var(--water);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.1s ease, transform 0.05s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: transparent;
 }
+
+#player-board.placing .cell:hover {
+  background-color: var(--water-hover);
+}
+
+#computer-board:not(.locked) .cell:hover:not(.hit):not(.miss) {
+  background-color: var(--water-hover);
+  border-color: var(--accent);
+}
+
+.cell:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.cell:active:not(.hit):not(.miss) {
+  transform: scale(0.92);
+}
+
+/* Placement preview hover */
+.cell.preview {
+  background-color: var(--preview) !important;
+  border-color: var(--accent) !important;
+}
+
+.cell.invalid-preview {
+  background-color: var(--invalid) !important;
+  border-color: var(--hit) !important;
+}
+
+/* Ship, Hit, Miss */
 .cell.ship {
-  background: #64748b;
+  background-color: var(--ship);
+  border-color: #0ea5e9;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
+
 .cell.hit {
-  background: #ef4444;
+  background-color: var(--hit);
+  border-color: #dc2626;
   cursor: not-allowed;
+  box-shadow: 0 0 8px rgba(239, 68, 68, 0.5);
 }
+
+.cell.hit::after {
+  content: "✕";
+  color: #fff;
+  font-size: 1rem;
+}
+
 .cell.miss {
-  background: #94a3b8;
+  background-color: var(--miss);
   cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.cell.miss::after {
+  content: "•";
+  color: var(--text-muted);
+  font-size: 1.2rem;
 }

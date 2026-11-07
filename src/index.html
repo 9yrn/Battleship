@@ -1,23 +1,36 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="style.css" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Battleship</title>
   </head>
   <body>
-    <h2 id="status">Your Turn: Click enemy waters to attack</h2>
+    <h1>Battleship</h1>
+    <p id="status">Place your Carrier (length: 5)</p>
+
+    <div id="setup-controls">
+      <button id="rotate-btn" class="control-btn">Orientation: Horizontal</button>
+    </div>
+
     <div class="boards-container">
-      <div>
+      <div class="board-wrapper">
         <h3>Your Fleet</h3>
         <div id="player-board" class="board"></div>
       </div>
-      <div>
+      <div class="board-wrapper">
         <h3>Enemy Waters</h3>
-        <div id="computer-board" class="board"></div>
+        <div id="computer-board" class="board locked"></div>
       </div>
     </div>
+
+    <script type="module" src="back.js"></script>
   </body>
-  <script type="module" src="back.js"></script>
 </html>
